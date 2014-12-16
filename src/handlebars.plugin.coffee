@@ -80,7 +80,8 @@ module.exports = (BasePlugin) ->
 					return docpad.error(err) if err
 
 					for fileName in files when fileName.match /(hb|hbs|handlebars)$/
-						filePath = path.join(partialsDir, fileName).replace(path.sep, '/')
+						filePath = path.join(partialsDir, fileName)
+						fileName = fileName.replace(path.sep, '/')
 						partial = fs.readFileSync filePath, 'utf8'
 						handlebars.registerPartial(fileName.split('.')[0], partial)
 					next()
