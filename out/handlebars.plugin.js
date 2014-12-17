@@ -106,7 +106,7 @@
                 continue;
               }
               filePath = path.join(partialsDir, fileName);
-              fileName = fileName.replace(path.sep, '/');
+              fileName = fileName.replace(new RegExp(path.sep.replace(/([.*+?^${}()|\[\]\/\\])/g, "\\$1"), "g"), '/');
               partial = fs.readFileSync(filePath, 'utf8');
               handlebars.registerPartial(fileName.split('.')[0], partial);
             }
