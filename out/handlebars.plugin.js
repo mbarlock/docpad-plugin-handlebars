@@ -100,15 +100,17 @@
             if (err) {
               return docpad.error(err);
             }
-            for (_i = 0, _len = files.length; _i < _len; _i++) {
-              fileName = files[_i];
-              if (!(fileName.match(/(hb|hbs|handlebars)$/))) {
-                continue;
-              }
-              filePath = path.join(partialsDir, fileName);
-              fileName = fileName.replace(new RegExp(path.sep.replace(/([.*+?^${}()|\[\]\/\\])/g, "\\$1"), "g"), '/');
-              partial = fs.readFileSync(filePath, 'utf8');
-              handlebars.registerPartial(fileName.split('.')[0], partial);
+            if (files) {
+                for (_i = 0, _len = files.length; _i < _len; _i++) {
+                  fileName = files[_i];
+                  if (!(fileName.match(/(hb|hbs|handlebars)$/))) {
+                    continue;
+                  }
+                  filePath = path.join(partialsDir, fileName);
+                  fileName = fileName.replace(new RegExp(path.sep.replace(/([.*+?^${}()|\[\]\/\\])/g, "\\$1"), "g"), '/');
+                  partial = fs.readFileSync(filePath, 'utf8');
+                  handlebars.registerPartial(fileName.split('.')[0], partial);
+                }
             }
             return next();
           });
